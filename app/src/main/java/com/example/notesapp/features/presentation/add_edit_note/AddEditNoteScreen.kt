@@ -1,4 +1,4 @@
-package com.example.notesapp.features.presentation.add_edit_note.components
+package com.example.notesapp.features.presentation.add_edit_note
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.Animatable
@@ -38,8 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.notesapp.features.domain.model.Note
-import com.example.notesapp.features.presentation.add_edit_note.AddEditNoteEvent
-import com.example.notesapp.features.presentation.add_edit_note.AddEditNoteViewModel
+import com.example.notesapp.features.presentation.add_edit_note.components.TransparentHintTextField
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -84,7 +83,8 @@ fun AddEditNoteScreen(
                 onClick = {
                     viewModel.onEvent(AddEditNoteEvent.SaveNote)
                 },
-                backgroundColor = MaterialTheme.colors.primary
+                backgroundColor = MaterialTheme.colors.primary,
+                modifier = Modifier.padding(bottom = 32.dp)
             ) {
                 Icon(imageVector = Icons.Default.Check, contentDescription = "Save note")
             }
@@ -97,6 +97,7 @@ fun AddEditNoteScreen(
                 .background(noteBackgroundAnimatable.value)
                 .padding(16.dp)
         ) {
+            Spacer(modifier = Modifier.height(20.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -156,7 +157,7 @@ fun AddEditNoteScreen(
                 onFocusChange = {
                     viewModel.onEvent(AddEditNoteEvent.ChangeContentFocus(it))
                 },
-                isHintVisible = titleState.isHintVisible,
+                isHintVisible = contentState.isHintVisible,
                 textStyle = MaterialTheme.typography.body1,
                 modifier = Modifier.fillMaxHeight()
             )
